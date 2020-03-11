@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoalListItem renders correctly when hours equals 10 000 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  isTVSelectable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID="button"
+>
+  <View
+    style={
+      Object {
+        "borderBottomColor": "#cbd2d9",
+        "borderBottomWidth": 1,
+        "flex": 1,
+        "flexDirection": "row",
+        "paddingBottom": 14,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "flexDirection": "column",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#000",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Learn French
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 12,
+            "marginBottom": 16,
+          }
+        }
+      >
+        4000
+         / 
+        10000
+         hours
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 12,
+            "marginBottom": 16,
+          }
+        }
+      >
+        You will become a master on Invalid Date
+      </Text>
+      <View
+        onLayout={[Function]}
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(0, 122, 255, 0.38)",
+              "height": 4,
+              "opacity": 0,
+              "overflow": "hidden",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "rgb(0, 122, 255)",
+                "flex": 1,
+                "transform": Array [
+                  Object {
+                    "translateX": -0,
+                  },
+                  Object {
+                    "scaleX": 0.0001,
+                  },
+                ],
+                "width": 0,
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`GoalListItem renders correctly when spent > hours 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  isTVSelectable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID="button"
+>
+  <View
+    style={
+      Object {
+        "borderBottomColor": "#cbd2d9",
+        "borderBottomWidth": 1,
+        "flex": 1,
+        "flexDirection": "row",
+        "paddingBottom": 14,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "flexDirection": "column",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#000",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "marginBottom": 10,
+          }
+        }
+      >
+        Learn French
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 12,
+            "marginBottom": 16,
+          }
+        }
+      >
+        10001
+         / 
+        10000
+         hours
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 12,
+            "marginBottom": 16,
+          }
+        }
+      >
+        You have mastered this goal!
+      </Text>
+      <View
+        onLayout={[Function]}
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(0, 122, 255, 0.38)",
+              "height": 4,
+              "opacity": 0,
+              "overflow": "hidden",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "rgb(0, 122, 255)",
+                "flex": 1,
+                "transform": Array [
+                  Object {
+                    "translateX": -0,
+                  },
+                  Object {
+                    "scaleX": 0.0001,
+                  },
+                ],
+                "width": 0,
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

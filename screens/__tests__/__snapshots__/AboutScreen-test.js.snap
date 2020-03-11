@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutScreen renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "paddingBottom": 15,
+        "width": 300,
+      }
+    }
+  >
+    TenK is an app to help you track the progress of your 10 000 hour goals.
+  </Text>
+  <Text
+    style={
+      Object {
+        "paddingBottom": 15,
+        "width": 300,
+      }
+    }
+  >
+    After searching for a simple app to keep track of my progress I found that all the apps didn't do the simple task I wanted them to do.
+  </Text>
+  <Text
+    style={
+      Object {
+        "paddingBottom": 15,
+        "width": 300,
+      }
+    }
+  >
+    That's when I decided to create TenK.
+  </Text>
+  <Text
+    style={
+      Object {
+        "paddingBottom": 15,
+        "width": 300,
+      }
+    }
+  >
+    If you have suggestions or experienced a bug please use github to tell me about it.
+  </Text>
+</View>
+`;
