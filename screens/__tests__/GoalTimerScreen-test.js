@@ -8,7 +8,7 @@ import {
 } from 'react-native-testing-library'
 import { AsyncStorage, Alert } from 'react-native'
 
-import GoalStopwatchScreen from '../GoalStopwatchScreen'
+import GoalTimerScreen from '../GoalTimerScreen'
 
 jest.mock('react-native/Libraries/Storage/AsyncStorage', () => ({
   setItem: jest.fn(() => {
@@ -37,11 +37,17 @@ jest.mock('react-native/Libraries/Alert/Alert', () => {
   }
 })
 
+jest.doMock('react-native/Libraries/AppState/AppState', () => {
+  return {
+    currentState: 'active',
+  }
+})
+
 afterEach(() => {
   jest.clearAllMocks()
 })
 
-describe('GoalStopwatchScreen', () => {
+describe('GoalTimerScreen', () => {
   const navigation = {
     navigate: jest.fn(),
     setOptions: jest.fn(),
@@ -57,44 +63,39 @@ describe('GoalStopwatchScreen', () => {
   }
   it(`renders correctly`, () => {
     const tree = renderer
-      .create(<GoalStopwatchScreen navigation={navigation} route={route} />)
+      .create(<GoalTimerScreen navigation={navigation} route={route} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
-  it(`can start/stop/reset the stopwatch`, async () => {
+  it(`can use the timer`, async () => {
     const { getByText } = render(
-      <GoalStopwatchScreen navigation={navigation} route={route} />
+      <GoalTimerScreen
+        navigation={navigation}
+        route={route}
+        initialDuration={1000}
+      />
     )
     await fireEvent.press(getByText('Start'))
-    await waitForElement(() => getByText('00:00:01'))
-    await fireEvent.press(getByText('Stop'))
-    await fireEvent.press(getByText('Start'))
-    await waitForElement(() => getByText('00:00:02'))
-    await fireEvent.press(getByText('Reset'))
+    await expect(getByText('00:00:01')).toBeTruthy()
     await waitForElement(() => getByText('00:00:00'))
-  })
-  it(`can add time towards a goal`, async () => {
-    const { getByText } = render(
-      <GoalStopwatchScreen navigation={navigation} route={route} />
-    )
-    await act(async () => {
-      await fireEvent.press(getByText('Start'))
-      await fireEvent.press(getByText('Stop'))
-      await expect(Alert.alert).toHaveBeenCalled()
-      await Alert.alert.mock.calls[0][2][1].onPress()
-      await expect(AsyncStorage.getItem).toBeCalledTimes(1)
-      await expect(AsyncStorage.setItem).toBeCalledTimes(1)
-      await expect(navigation.goBack).toBeCalled()
-    })
+    await expect(Alert.alert).toHaveBeenCalled()
+    await Alert.alert.mock.calls[0][2][1].onPress()
+    await expect(AsyncStorage.getItem).toBeCalledTimes(1)
+    await expect(AsyncStorage.setItem).toBeCalledTimes(1)
+    await expect(navigation.goBack).toBeCalled()
   })
   it(`throws an exception when goal doesn't exist`, async () => {
     route.params.goal.id = 'unknown_id'
     const { getByText } = render(
-      <GoalStopwatchScreen navigation={navigation} route={route} />
+      <GoalTimerScreen
+        navigation={navigation}
+        route={route}
+        initialDuration={1000}
+      />
     )
     await act(async () => {
       await fireEvent.press(getByText('Start'))
-      await fireEvent.press(getByText('Stop'))
+      await waitForElement(() => getByText('00:00:00'))
       await expect(Alert.alert).toHaveBeenCalled()
       await expect(Alert.alert.mock.calls[0][2][1].onPress()).rejects.toThrow()
       await expect(AsyncStorage.setItem).toBeCalledTimes(0)

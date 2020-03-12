@@ -1,0 +1,664 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoalTimerScreen renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "stretch",
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "height": 300,
+        "paddingBottom": 30,
+        "paddingTop": 50,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <RCTPicker
+          items={
+            Array [
+              Object {
+                "label": "0 hours",
+                "textColor": undefined,
+                "value": 0,
+              },
+              Object {
+                "label": "1 hours",
+                "textColor": undefined,
+                "value": 1,
+              },
+              Object {
+                "label": "2 hours",
+                "textColor": undefined,
+                "value": 2,
+              },
+              Object {
+                "label": "3 hours",
+                "textColor": undefined,
+                "value": 3,
+              },
+              Object {
+                "label": "4 hours",
+                "textColor": undefined,
+                "value": 4,
+              },
+              Object {
+                "label": "5 hours",
+                "textColor": undefined,
+                "value": 5,
+              },
+              Object {
+                "label": "6 hours",
+                "textColor": undefined,
+                "value": 6,
+              },
+              Object {
+                "label": "7 hours",
+                "textColor": undefined,
+                "value": 7,
+              },
+              Object {
+                "label": "8 hours",
+                "textColor": undefined,
+                "value": 8,
+              },
+              Object {
+                "label": "9 hours",
+                "textColor": undefined,
+                "value": 9,
+              },
+              Object {
+                "label": "10 hours",
+                "textColor": undefined,
+                "value": 10,
+              },
+              Object {
+                "label": "11 hours",
+                "textColor": undefined,
+                "value": 11,
+              },
+              Object {
+                "label": "12 hours",
+                "textColor": undefined,
+                "value": 12,
+              },
+              Object {
+                "label": "13 hours",
+                "textColor": undefined,
+                "value": 13,
+              },
+              Object {
+                "label": "14 hours",
+                "textColor": undefined,
+                "value": 14,
+              },
+              Object {
+                "label": "15 hours",
+                "textColor": undefined,
+                "value": 15,
+              },
+              Object {
+                "label": "16 hours",
+                "textColor": undefined,
+                "value": 16,
+              },
+              Object {
+                "label": "17 hours",
+                "textColor": undefined,
+                "value": 17,
+              },
+              Object {
+                "label": "18 hours",
+                "textColor": undefined,
+                "value": 18,
+              },
+              Object {
+                "label": "19 hours",
+                "textColor": undefined,
+                "value": 19,
+              },
+              Object {
+                "label": "20 hours",
+                "textColor": undefined,
+                "value": 20,
+              },
+              Object {
+                "label": "21 hours",
+                "textColor": undefined,
+                "value": 21,
+              },
+              Object {
+                "label": "22 hours",
+                "textColor": undefined,
+                "value": 22,
+              },
+              Object {
+                "label": "23 hours",
+                "textColor": undefined,
+                "value": 23,
+              },
+              Object {
+                "label": "24 hours",
+                "textColor": undefined,
+                "value": 24,
+              },
+            ]
+          }
+          onChange={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <RCTPicker
+          items={
+            Array [
+              Object {
+                "label": "0 min",
+                "textColor": undefined,
+                "value": 0,
+              },
+              Object {
+                "label": "1 min",
+                "textColor": undefined,
+                "value": 1,
+              },
+              Object {
+                "label": "2 min",
+                "textColor": undefined,
+                "value": 2,
+              },
+              Object {
+                "label": "3 min",
+                "textColor": undefined,
+                "value": 3,
+              },
+              Object {
+                "label": "4 min",
+                "textColor": undefined,
+                "value": 4,
+              },
+              Object {
+                "label": "5 min",
+                "textColor": undefined,
+                "value": 5,
+              },
+              Object {
+                "label": "6 min",
+                "textColor": undefined,
+                "value": 6,
+              },
+              Object {
+                "label": "7 min",
+                "textColor": undefined,
+                "value": 7,
+              },
+              Object {
+                "label": "8 min",
+                "textColor": undefined,
+                "value": 8,
+              },
+              Object {
+                "label": "9 min",
+                "textColor": undefined,
+                "value": 9,
+              },
+              Object {
+                "label": "10 min",
+                "textColor": undefined,
+                "value": 10,
+              },
+              Object {
+                "label": "11 min",
+                "textColor": undefined,
+                "value": 11,
+              },
+              Object {
+                "label": "12 min",
+                "textColor": undefined,
+                "value": 12,
+              },
+              Object {
+                "label": "13 min",
+                "textColor": undefined,
+                "value": 13,
+              },
+              Object {
+                "label": "14 min",
+                "textColor": undefined,
+                "value": 14,
+              },
+              Object {
+                "label": "15 min",
+                "textColor": undefined,
+                "value": 15,
+              },
+              Object {
+                "label": "16 min",
+                "textColor": undefined,
+                "value": 16,
+              },
+              Object {
+                "label": "17 min",
+                "textColor": undefined,
+                "value": 17,
+              },
+              Object {
+                "label": "18 min",
+                "textColor": undefined,
+                "value": 18,
+              },
+              Object {
+                "label": "19 min",
+                "textColor": undefined,
+                "value": 19,
+              },
+              Object {
+                "label": "20 min",
+                "textColor": undefined,
+                "value": 20,
+              },
+              Object {
+                "label": "21 min",
+                "textColor": undefined,
+                "value": 21,
+              },
+              Object {
+                "label": "22 min",
+                "textColor": undefined,
+                "value": 22,
+              },
+              Object {
+                "label": "23 min",
+                "textColor": undefined,
+                "value": 23,
+              },
+              Object {
+                "label": "24 min",
+                "textColor": undefined,
+                "value": 24,
+              },
+              Object {
+                "label": "25 min",
+                "textColor": undefined,
+                "value": 25,
+              },
+              Object {
+                "label": "26 min",
+                "textColor": undefined,
+                "value": 26,
+              },
+              Object {
+                "label": "27 min",
+                "textColor": undefined,
+                "value": 27,
+              },
+              Object {
+                "label": "28 min",
+                "textColor": undefined,
+                "value": 28,
+              },
+              Object {
+                "label": "29 min",
+                "textColor": undefined,
+                "value": 29,
+              },
+              Object {
+                "label": "30 min",
+                "textColor": undefined,
+                "value": 30,
+              },
+              Object {
+                "label": "31 min",
+                "textColor": undefined,
+                "value": 31,
+              },
+              Object {
+                "label": "32 min",
+                "textColor": undefined,
+                "value": 32,
+              },
+              Object {
+                "label": "33 min",
+                "textColor": undefined,
+                "value": 33,
+              },
+              Object {
+                "label": "34 min",
+                "textColor": undefined,
+                "value": 34,
+              },
+              Object {
+                "label": "35 min",
+                "textColor": undefined,
+                "value": 35,
+              },
+              Object {
+                "label": "36 min",
+                "textColor": undefined,
+                "value": 36,
+              },
+              Object {
+                "label": "37 min",
+                "textColor": undefined,
+                "value": 37,
+              },
+              Object {
+                "label": "38 min",
+                "textColor": undefined,
+                "value": 38,
+              },
+              Object {
+                "label": "39 min",
+                "textColor": undefined,
+                "value": 39,
+              },
+              Object {
+                "label": "40 min",
+                "textColor": undefined,
+                "value": 40,
+              },
+              Object {
+                "label": "41 min",
+                "textColor": undefined,
+                "value": 41,
+              },
+              Object {
+                "label": "42 min",
+                "textColor": undefined,
+                "value": 42,
+              },
+              Object {
+                "label": "43 min",
+                "textColor": undefined,
+                "value": 43,
+              },
+              Object {
+                "label": "44 min",
+                "textColor": undefined,
+                "value": 44,
+              },
+              Object {
+                "label": "45 min",
+                "textColor": undefined,
+                "value": 45,
+              },
+              Object {
+                "label": "46 min",
+                "textColor": undefined,
+                "value": 46,
+              },
+              Object {
+                "label": "47 min",
+                "textColor": undefined,
+                "value": 47,
+              },
+              Object {
+                "label": "48 min",
+                "textColor": undefined,
+                "value": 48,
+              },
+              Object {
+                "label": "49 min",
+                "textColor": undefined,
+                "value": 49,
+              },
+              Object {
+                "label": "50 min",
+                "textColor": undefined,
+                "value": 50,
+              },
+              Object {
+                "label": "51 min",
+                "textColor": undefined,
+                "value": 51,
+              },
+              Object {
+                "label": "52 min",
+                "textColor": undefined,
+                "value": 52,
+              },
+              Object {
+                "label": "53 min",
+                "textColor": undefined,
+                "value": 53,
+              },
+              Object {
+                "label": "54 min",
+                "textColor": undefined,
+                "value": 54,
+              },
+              Object {
+                "label": "55 min",
+                "textColor": undefined,
+                "value": 55,
+              },
+              Object {
+                "label": "56 min",
+                "textColor": undefined,
+                "value": 56,
+              },
+              Object {
+                "label": "57 min",
+                "textColor": undefined,
+                "value": 57,
+              },
+              Object {
+                "label": "58 min",
+                "textColor": undefined,
+                "value": 58,
+              },
+              Object {
+                "label": "59 min",
+                "textColor": undefined,
+                "value": 59,
+              },
+              Object {
+                "label": "60 min",
+                "textColor": undefined,
+                "value": 60,
+              },
+            ]
+          }
+          onChange={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "borderRadius": 3,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      isTVSelectable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignSelf": "center",
+          "marginBottom": 16,
+          "opacity": 1,
+          "width": 140,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#2089dc",
+            "borderColor": "#2089dc",
+            "borderRadius": 3,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "white",
+              "fontSize": 18,
+              "paddingBottom": 1,
+              "paddingTop": 2,
+              "textAlign": "center",
+            }
+          }
+        >
+          Start
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "borderRadius": 3,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      isTVSelectable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignSelf": "center",
+          "marginBottom": 16,
+          "opacity": 1,
+          "width": 140,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#2089dc",
+            "borderColor": "#2089dc",
+            "borderRadius": 3,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "white",
+              "fontSize": 18,
+              "paddingBottom": 1,
+              "paddingTop": 2,
+              "textAlign": "center",
+            }
+          }
+        >
+          Reset
+        </Text>
+      </View>
+    </View>
+  </View>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "marginTop": 100,
+        "textAlign": "center",
+        "width": 340,
+      }
+    }
+  >
+    Start the timer and start working on you goal.
+  </Text>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "marginTop": 16,
+        "textAlign": "center",
+        "width": 340,
+      }
+    }
+  >
+    When the timer ends the time will be added towards completing your goal.
+  </Text>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "marginTop": 16,
+        "textAlign": "center",
+        "width": 340,
+      }
+    }
+  >
+    Good luck, you can do it!
+  </Text>
+</View>
+`;

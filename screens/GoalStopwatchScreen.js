@@ -50,14 +50,14 @@ export default function GoalStopwatchScreen({ route, navigation }) {
 
   const [stopwatchRunning, setStopwatchRunning] = React.useState(false)
   const [stopwatchReset, setStopwatchReset] = React.useState(false)
-  const [formattedTime, setFormattedTime] = React.useState(0)
+  const [formattedTime, setFormattedTime] = React.useState('00:00:00')
 
   React.useEffect(() => {
     navigation.setOptions({
       headerTitle: goal.name,
       headerBackTitle: 'Back',
     })
-  }, [])
+  }, [navigation])
 
   function timeToSeconds() {
     const a = formattedTime.split(':')
@@ -65,20 +65,21 @@ export default function GoalStopwatchScreen({ route, navigation }) {
   }
 
   async function addTimeToGoal() {
-    try {
-      const seconds = timeToSeconds()
-      const goalsString = (await AsyncStorage.getItem('@goals')) || '[]'
-      const goals = JSON.parse(goalsString)
-      for (let i = 0; i < goals.length; i += 1) {
-        if (goals[i].id === goal.id) {
-          goals[i].spent += seconds
-        }
+    const seconds = timeToSeconds()
+    const goalsString = await AsyncStorage.getItem('@goals')
+    const goals = JSON.parse(goalsString)
+    let goalFound = false
+    for (let i = 0; i < goals.length; i += 1) {
+      if (goals[i].id === goal.id) {
+        goals[i].spent += seconds
+        goalFound = true
       }
-      await AsyncStorage.setItem('@goals', JSON.stringify(goals))
-      navigation.goBack()
-    } catch (e) {
-      // console.error(e)
     }
+    if (!goalFound) {
+      throw new Error('Goal not found')
+    }
+    await AsyncStorage.setItem('@goals', JSON.stringify(goals))
+    navigation.goBack()
   }
 
   function toggleStopwatch() {
@@ -96,7 +97,7 @@ export default function GoalStopwatchScreen({ route, navigation }) {
             text: 'OK',
             onPress: () => {
               setStopwatchReset(true)
-              addTimeToGoal()
+              return addTimeToGoal()
             },
           },
         ]
@@ -111,11 +112,6 @@ export default function GoalStopwatchScreen({ route, navigation }) {
     setStopwatchReset(true)
   }
 
-  function setTime(time) {
-    console.log(time)
-    setFormattedTime(time)
-  }
-
   return (
     <View style={styles.container}>
       <Stopwatch
@@ -123,7 +119,7 @@ export default function GoalStopwatchScreen({ route, navigation }) {
         start={stopwatchRunning}
         reset={stopwatchReset}
         options={options}
-        getTime={time => setTime(time)}
+        getTime={time => setFormattedTime(time)}
       />
       <Button
         title={!stopwatchRunning ? 'Start' : 'Stop'}

@@ -59,45 +59,50 @@ const styles = StyleSheet.create({
   },
 })
 
-export default function GoalTimerScreen({ route, navigation }) {
+async function getiOSNotificationPermission() {
+  const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+  if (status !== 'granted') {
+    await Permissions.askAsync(Permissions.NOTIFICATIONS)
+  }
+}
+
+export default function GoalTimerScreen({
+  route,
+  navigation,
+  initialDuration = 0,
+}) {
   const { goal } = route.params
 
   const [timerRunning, setTimerRunning] = React.useState(false)
   const [timerPaused, setTimerPaused] = React.useState(false)
   const [timerReset, setTimerReset] = React.useState(false)
-  const [duration, setDuration] = React.useState(0)
-  const [time, setTime] = React.useState(0)
-
-  navigation.setOptions({
-    headerTitle: goal.name,
-    headerBackTitle: 'Back',
-  })
-
-  async function getiOSNotificationPermission() {
-    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
-    if (status !== 'granted') {
-      await Permissions.askAsync(Permissions.NOTIFICATIONS)
-    }
-  }
+  const [duration, setDuration] = React.useState(initialDuration)
+  const [formattedTime, setFormattedTime] = React.useState('00:00:00')
 
   React.useEffect(() => {
+    navigation.setOptions({
+      headerTitle: goal.name,
+      headerBackTitle: 'Back',
+    })
     getiOSNotificationPermission()
-  })
+  }, [navigation])
 
   async function addTimeToGoal(seconds) {
-    try {
-      const goalsString = (await AsyncStorage.getItem('@goals')) || '[]'
-      const goals = JSON.parse(goalsString)
-      for (let i = 0; i < goals.length; i += 1) {
-        if (goals[i].id === goal.id) {
-          goals[i].spent += seconds
-        }
+    console.log(seconds)
+    const goalsString = await AsyncStorage.getItem('@goals')
+    const goals = JSON.parse(goalsString)
+    let goalFound = false
+    for (let i = 0; i < goals.length; i += 1) {
+      if (goals[i].id === goal.id) {
+        goals[i].spent += seconds
+        goalFound = true
       }
-      await AsyncStorage.setItem('@goals', JSON.stringify(goals))
-      navigation.goBack()
-    } catch (e) {
-      // console.error(e)
     }
+    if (!goalFound) {
+      throw new Error('Goal not found')
+    }
+    await AsyncStorage.setItem('@goals', JSON.stringify(goals))
+    navigation.goBack()
   }
 
   function toggleTimer() {
@@ -133,7 +138,7 @@ export default function GoalTimerScreen({ route, navigation }) {
     } else {
       Alert.alert(
         'Update Goal?',
-        `Do you want to add ${time} towards goal "${goal.name}"`,
+        `Do you want to add ${formattedTime} towards goal "${goal.name}"`,
         [
           {
             text: 'Cancel',
@@ -143,13 +148,12 @@ export default function GoalTimerScreen({ route, navigation }) {
             text: 'OK',
             onPress: () => {
               resetTimer()
-              addTimeToGoal()
+              return addTimeToGoal(duration / 1000)
             },
           },
         ]
       )
     }
-    addTimeToGoal(duration / 1000)
   }
 
   return (
@@ -172,8 +176,8 @@ export default function GoalTimerScreen({ route, navigation }) {
             start={timerRunning}
             reset={timerReset}
             options={options}
-            handleFinish={handleTimerComplete}
-            getTime={setTime}
+            handleFinish={() => handleTimerComplete()}
+            getTime={time => setFormattedTime(time)}
           />
         )}
       </View>
