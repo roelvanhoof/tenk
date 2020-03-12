@@ -57,7 +57,7 @@ export default function GoalStopwatchScreen({ route, navigation }) {
       headerTitle: goal.name,
       headerBackTitle: 'Back',
     })
-  }, [navigation])
+  }, [goal])
 
   function timeToSeconds() {
     const a = formattedTime.split(':')
