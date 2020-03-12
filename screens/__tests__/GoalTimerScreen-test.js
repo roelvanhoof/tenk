@@ -160,7 +160,8 @@ describe('GoalTimerScreen', () => {
     await act(async () => {
       await fireEvent.press(getByText('Start'))
       await waitForElement(() => getByText('00:00:00'))
-      await expect(Notifications.presentLocalNotificationAsync).toBeCalledTimes(1)
+      const notification = Notifications.presentLocalNotificationAsync
+      await expect(notification).toBeCalledTimes(1)
     })
   })
   it(`asks for permissions when permission state is 'not granted'`, async () => {
