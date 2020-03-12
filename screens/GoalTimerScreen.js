@@ -88,7 +88,6 @@ export default function GoalTimerScreen({
   }, [navigation])
 
   async function addTimeToGoal(seconds) {
-    console.log(seconds)
     const goalsString = await AsyncStorage.getItem('@goals')
     const goals = JSON.parse(goalsString)
     let goalFound = false
@@ -183,10 +182,14 @@ export default function GoalTimerScreen({
       </View>
       <Button
         title={!timerRunning ? 'Start' : 'Pause'}
-        onPress={toggleTimer}
+        onPress={() => toggleTimer()}
         style={styles.button}
       />
-      <Button title="Reset" onPress={resetTimer} style={styles.button} />
+      <Button
+        title="Reset"
+        onPress={() => resetTimer()}
+        style={styles.button}
+      />
       <Text style={styles.text}>
         Start the timer and start working on you goal.
       </Text>
