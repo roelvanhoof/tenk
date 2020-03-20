@@ -1,0 +1,501 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoalTimerScreen renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "stretch",
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "height": 300,
+        "paddingBottom": 30,
+        "paddingTop": 50,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <AndroidDialogPicker
+        items={
+          Array [
+            Object {
+              "color": null,
+              "label": "0 hours",
+            },
+            Object {
+              "color": null,
+              "label": "1 hours",
+            },
+            Object {
+              "color": null,
+              "label": "2 hours",
+            },
+            Object {
+              "color": null,
+              "label": "3 hours",
+            },
+            Object {
+              "color": null,
+              "label": "4 hours",
+            },
+            Object {
+              "color": null,
+              "label": "5 hours",
+            },
+            Object {
+              "color": null,
+              "label": "6 hours",
+            },
+            Object {
+              "color": null,
+              "label": "7 hours",
+            },
+            Object {
+              "color": null,
+              "label": "8 hours",
+            },
+            Object {
+              "color": null,
+              "label": "9 hours",
+            },
+            Object {
+              "color": null,
+              "label": "10 hours",
+            },
+            Object {
+              "color": null,
+              "label": "11 hours",
+            },
+            Object {
+              "color": null,
+              "label": "12 hours",
+            },
+            Object {
+              "color": null,
+              "label": "13 hours",
+            },
+            Object {
+              "color": null,
+              "label": "14 hours",
+            },
+            Object {
+              "color": null,
+              "label": "15 hours",
+            },
+            Object {
+              "color": null,
+              "label": "16 hours",
+            },
+            Object {
+              "color": null,
+              "label": "17 hours",
+            },
+            Object {
+              "color": null,
+              "label": "18 hours",
+            },
+            Object {
+              "color": null,
+              "label": "19 hours",
+            },
+            Object {
+              "color": null,
+              "label": "20 hours",
+            },
+            Object {
+              "color": null,
+              "label": "21 hours",
+            },
+            Object {
+              "color": null,
+              "label": "22 hours",
+            },
+            Object {
+              "color": null,
+              "label": "23 hours",
+            },
+            Object {
+              "color": null,
+              "label": "24 hours",
+            },
+          ]
+        }
+        onSelect={[Function]}
+        selected={0}
+        style={
+          Array [
+            Object {
+              "height": 50,
+            },
+            Object {
+              "flex": 1,
+            },
+          ]
+        }
+      />
+      <AndroidDialogPicker
+        items={
+          Array [
+            Object {
+              "color": null,
+              "label": "0 min",
+            },
+            Object {
+              "color": null,
+              "label": "1 min",
+            },
+            Object {
+              "color": null,
+              "label": "2 min",
+            },
+            Object {
+              "color": null,
+              "label": "3 min",
+            },
+            Object {
+              "color": null,
+              "label": "4 min",
+            },
+            Object {
+              "color": null,
+              "label": "5 min",
+            },
+            Object {
+              "color": null,
+              "label": "6 min",
+            },
+            Object {
+              "color": null,
+              "label": "7 min",
+            },
+            Object {
+              "color": null,
+              "label": "8 min",
+            },
+            Object {
+              "color": null,
+              "label": "9 min",
+            },
+            Object {
+              "color": null,
+              "label": "10 min",
+            },
+            Object {
+              "color": null,
+              "label": "11 min",
+            },
+            Object {
+              "color": null,
+              "label": "12 min",
+            },
+            Object {
+              "color": null,
+              "label": "13 min",
+            },
+            Object {
+              "color": null,
+              "label": "14 min",
+            },
+            Object {
+              "color": null,
+              "label": "15 min",
+            },
+            Object {
+              "color": null,
+              "label": "16 min",
+            },
+            Object {
+              "color": null,
+              "label": "17 min",
+            },
+            Object {
+              "color": null,
+              "label": "18 min",
+            },
+            Object {
+              "color": null,
+              "label": "19 min",
+            },
+            Object {
+              "color": null,
+              "label": "20 min",
+            },
+            Object {
+              "color": null,
+              "label": "21 min",
+            },
+            Object {
+              "color": null,
+              "label": "22 min",
+            },
+            Object {
+              "color": null,
+              "label": "23 min",
+            },
+            Object {
+              "color": null,
+              "label": "24 min",
+            },
+            Object {
+              "color": null,
+              "label": "25 min",
+            },
+            Object {
+              "color": null,
+              "label": "26 min",
+            },
+            Object {
+              "color": null,
+              "label": "27 min",
+            },
+            Object {
+              "color": null,
+              "label": "28 min",
+            },
+            Object {
+              "color": null,
+              "label": "29 min",
+            },
+            Object {
+              "color": null,
+              "label": "30 min",
+            },
+            Object {
+              "color": null,
+              "label": "31 min",
+            },
+            Object {
+              "color": null,
+              "label": "32 min",
+            },
+            Object {
+              "color": null,
+              "label": "33 min",
+            },
+            Object {
+              "color": null,
+              "label": "34 min",
+            },
+            Object {
+              "color": null,
+              "label": "35 min",
+            },
+            Object {
+              "color": null,
+              "label": "36 min",
+            },
+            Object {
+              "color": null,
+              "label": "37 min",
+            },
+            Object {
+              "color": null,
+              "label": "38 min",
+            },
+            Object {
+              "color": null,
+              "label": "39 min",
+            },
+            Object {
+              "color": null,
+              "label": "40 min",
+            },
+            Object {
+              "color": null,
+              "label": "41 min",
+            },
+            Object {
+              "color": null,
+              "label": "42 min",
+            },
+            Object {
+              "color": null,
+              "label": "43 min",
+            },
+            Object {
+              "color": null,
+              "label": "44 min",
+            },
+            Object {
+              "color": null,
+              "label": "45 min",
+            },
+            Object {
+              "color": null,
+              "label": "46 min",
+            },
+            Object {
+              "color": null,
+              "label": "47 min",
+            },
+            Object {
+              "color": null,
+              "label": "48 min",
+            },
+            Object {
+              "color": null,
+              "label": "49 min",
+            },
+            Object {
+              "color": null,
+              "label": "50 min",
+            },
+            Object {
+              "color": null,
+              "label": "51 min",
+            },
+            Object {
+              "color": null,
+              "label": "52 min",
+            },
+            Object {
+              "color": null,
+              "label": "53 min",
+            },
+            Object {
+              "color": null,
+              "label": "54 min",
+            },
+            Object {
+              "color": null,
+              "label": "55 min",
+            },
+            Object {
+              "color": null,
+              "label": "56 min",
+            },
+            Object {
+              "color": null,
+              "label": "57 min",
+            },
+            Object {
+              "color": null,
+              "label": "58 min",
+            },
+            Object {
+              "color": null,
+              "label": "59 min",
+            },
+            Object {
+              "color": null,
+              "label": "60 min",
+            },
+          ]
+        }
+        onSelect={[Function]}
+        selected={0}
+        style={
+          Array [
+            Object {
+              "height": 50,
+            },
+            Object {
+              "flex": 1,
+            },
+          ]
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "borderRadius": 3,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      isTVSelectable={true}
+      nativeBackgroundAndroid={
+        Object {
+          "attribute": "selectableItemBackground",
+          "type": "ThemeAttrAndroid",
+        }
+      }
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#2089dc",
+          "borderColor": "#2089dc",
+          "borderRadius": 3,
+          "borderWidth": 0,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "padding": 8,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "white",
+            "fontFamily": "sans-serif-medium",
+            "fontSize": 16,
+            "paddingBottom": 1,
+            "paddingTop": 2,
+            "textAlign": "center",
+          }
+        }
+      >
+        Start
+      </Text>
+    </View>
+  </View>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "marginTop": 100,
+        "textAlign": "center",
+        "width": 340,
+      }
+    }
+  >
+    Start the timer and start working on you goal.
+  </Text>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "marginTop": 16,
+        "textAlign": "center",
+        "width": 340,
+      }
+    }
+  >
+    When the timer ends the time will be added towards completing your goal.
+  </Text>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "marginTop": 16,
+        "textAlign": "center",
+        "width": 340,
+      }
+    }
+  >
+    Good luck, you can do it!
+  </Text>
+</View>
+`;

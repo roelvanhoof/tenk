@@ -1,17 +1,8 @@
 import * as React from 'react'
 import { View, Text, StyleSheet, Alert, AsyncStorage } from 'react-native'
-import { Stopwatch } from 'react-native-stopwatch-timer'
 import { Button } from 'react-native-elements'
-
-const options = {
-  container: {
-    marginBottom: 34,
-    alignSelf: 'center',
-  },
-  text: {
-    fontSize: 74,
-  },
-}
+import Stopwatch from '../components/Stopwatch'
+import { formatTimeString } from '../lib/utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -50,7 +41,7 @@ export default function GoalStopwatchScreen({ route, navigation }) {
 
   const [stopwatchRunning, setStopwatchRunning] = React.useState(false)
   const [stopwatchReset, setStopwatchReset] = React.useState(false)
-  const [formattedTime, setFormattedTime] = React.useState('00:00:00')
+  const [started, setStarted] = React.useState(0)
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -59,13 +50,7 @@ export default function GoalStopwatchScreen({ route, navigation }) {
     })
   }, [goal])
 
-  function timeToSeconds() {
-    const a = formattedTime.split(':')
-    return +a[0] * 60 * 60 + +a[1] * 60 + +a[2]
-  }
-
-  async function addTimeToGoal() {
-    const seconds = timeToSeconds()
+  async function addTimeToGoal(seconds) {
     const goalsString = await AsyncStorage.getItem('@goals')
     const goals = JSON.parse(goalsString)
     let goalFound = false
@@ -82,28 +67,39 @@ export default function GoalStopwatchScreen({ route, navigation }) {
     navigation.goBack()
   }
 
+  function stopped(seconds) {
+    Alert.alert(
+      'Update Goal?',
+      `Do you want to add ${formatTimeString(seconds * 1000)} towards goal "${
+        goal.name
+      }"`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            setStopwatchReset(true)
+            setStopwatchReset(true)
+            return addTimeToGoal(seconds)
+          },
+        },
+      ]
+    )
+  }
+
   function toggleStopwatch() {
     if (stopwatchRunning) {
       setStopwatchRunning(false)
-      Alert.alert(
-        'Update Goal?',
-        `Do you want to add ${formattedTime} towards goal "${goal.name}"`,
-        [
-          {
-            text: 'Cancel',
-            style: 'cancel',
-          },
-          {
-            text: 'OK',
-            onPress: () => {
-              setStopwatchReset(true)
-              return addTimeToGoal()
-            },
-          },
-        ]
-      )
+      const timestamp = Math.floor(Date.now() / 1000)
+      const elapsed = timestamp - started
+      stopped(elapsed)
     } else {
       setStopwatchRunning(true)
+      const timestamp = Math.floor(Date.now() / 1000)
+      setStarted(timestamp)
     }
   }
 
@@ -114,13 +110,7 @@ export default function GoalStopwatchScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Stopwatch
-        laps
-        start={stopwatchRunning}
-        reset={stopwatchReset}
-        options={options}
-        getTime={time => setFormattedTime(time)}
-      />
+      <Stopwatch running={stopwatchRunning} reset={stopwatchReset} />
       <Button
         title={!stopwatchRunning ? 'Start' : 'Stop'}
         onPress={toggleStopwatch}

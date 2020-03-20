@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false)
   const [initialNavigationState, setInitialNavigationState] = React.useState()
-  const [showIntro, setShowIntro] = React.useState(true)
+  const [showIntro, setShowIntro] = React.useState(false)
   const containerRef = React.useRef()
   const { getInitialState } = useLinking(containerRef)
 

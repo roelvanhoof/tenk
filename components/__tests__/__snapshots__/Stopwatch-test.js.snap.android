@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stopwatch renders a resetted stopwatch correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "center",
+      "backgroundColor": "#fff",
+      "borderRadius": 5,
+      "marginBottom": 34,
+      "padding": 5,
+      "width": 340,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#000",
+        "fontSize": 74,
+        "marginLeft": 7,
+      }
+    }
+  >
+    00:00:00
+  </Text>
+</View>
+`;
+
+exports[`Stopwatch renders a running stopwatch correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "center",
+      "backgroundColor": "#fff",
+      "borderRadius": 5,
+      "marginBottom": 34,
+      "padding": 5,
+      "width": 340,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#000",
+        "fontSize": 74,
+        "marginLeft": 7,
+      }
+    }
+  >
+    00:00:00
+  </Text>
+</View>
+`;
+
+exports[`Stopwatch renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "center",
+      "backgroundColor": "#fff",
+      "borderRadius": 5,
+      "marginBottom": 34,
+      "padding": 5,
+      "width": 340,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#000",
+        "fontSize": 74,
+        "marginLeft": 7,
+      }
+    }
+  >
+    00:00:00
+  </Text>
+</View>
+`;

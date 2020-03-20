@@ -5,6 +5,7 @@ import {
   act,
   fireEvent,
   waitForElement,
+  cleanup,
 } from 'react-native-testing-library'
 import { AsyncStorage, Alert } from 'react-native'
 
@@ -39,6 +40,7 @@ jest.mock('react-native/Libraries/Alert/Alert', () => {
 
 afterEach(() => {
   jest.clearAllMocks()
+  cleanup()
 })
 
 describe('GoalStopwatchScreen', () => {
@@ -55,23 +57,27 @@ describe('GoalStopwatchScreen', () => {
       },
     },
   }
-  it(`renders correctly`, () => {
-    const tree = renderer
-      .create(<GoalStopwatchScreen navigation={navigation} route={route} />)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+  it(`renders correctly`, async () => {
+    await act(async () => {
+      const tree = await renderer
+        .create(<GoalStopwatchScreen navigation={navigation} route={route} />)
+        .toJSON()
+      await expect(tree).toMatchSnapshot()
+    })
   })
   it(`can start/stop/reset the stopwatch`, async () => {
     const { getByText } = render(
       <GoalStopwatchScreen navigation={navigation} route={route} />
     )
-    await fireEvent.press(getByText('Start'))
-    await waitForElement(() => getByText('00:00:01'))
-    await fireEvent.press(getByText('Stop'))
-    await fireEvent.press(getByText('Start'))
-    await waitForElement(() => getByText('00:00:02'))
-    await fireEvent.press(getByText('Reset'))
-    await waitForElement(() => getByText('00:00:00'))
+    await act(async () => {
+      await fireEvent.press(getByText('Start'))
+      await waitForElement(() => getByText('00:00:01'))
+      await fireEvent.press(getByText('Stop'))
+      await fireEvent.press(getByText('Start'))
+      await waitForElement(() => getByText('00:00:02'))
+      await fireEvent.press(getByText('Reset'))
+      await waitForElement(() => getByText('00:00:00'))
+    })
   })
   it(`can add time towards a goal`, async () => {
     const { getByText } = render(
@@ -79,6 +85,7 @@ describe('GoalStopwatchScreen', () => {
     )
     await act(async () => {
       await fireEvent.press(getByText('Start'))
+      await waitForElement(() => getByText('00:00:01'))
       await fireEvent.press(getByText('Stop'))
       await expect(Alert.alert).toHaveBeenCalled()
       await Alert.alert.mock.calls[0][2][1].onPress()

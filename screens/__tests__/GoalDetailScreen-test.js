@@ -1,6 +1,6 @@
 import * as React from 'react'
 import renderer from 'react-test-renderer'
-import { render, act, fireEvent } from 'react-native-testing-library'
+import { render, act, fireEvent, cleanup } from 'react-native-testing-library'
 
 import { AsyncStorage } from 'react-native'
 
@@ -11,7 +11,7 @@ import GoalDetailScreen from '../GoalDetailScreen'
 
 const Stack = createStackNavigator()
 
-jest.mock('../../navigation/getGoalId')
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
 
 jest.mock('react-native/Libraries/Storage/AsyncStorage', () => ({
   setItem: jest.fn(() => {
@@ -34,12 +34,15 @@ jest.mock('react-native/Libraries/Storage/AsyncStorage', () => ({
   }),
 }))
 
-beforeEach(() => {
+jest.mock('../../navigation/getGoalId')
+
+afterEach(() => {
   jest.clearAllMocks()
+  cleanup()
 })
 
 describe('GoalDetailScreen', () => {
-  it(`renders correctly`, () => {
+  it(`renders correctly`, async () => {
     const container = (
       <NavigationContainer>
         <Stack.Navigator>
@@ -48,7 +51,9 @@ describe('GoalDetailScreen', () => {
       </NavigationContainer>
     )
     const tree = renderer.create(container).toJSON()
-    expect(tree).toMatchSnapshot()
+    await act(async () => {
+      await expect(tree).toMatchSnapshot()
+    })
   })
   it(`shows the goal's stats`, async () => {
     const { getByTestId } = render(
@@ -58,7 +63,6 @@ describe('GoalDetailScreen', () => {
         </Stack.Navigator>
       </NavigationContainer>
     )
-
     await act(async () => {
       await expect(AsyncStorage.getItem).toBeCalledTimes(1)
       await expect(getByTestId('hours').props.children).toEqual(10000)
@@ -97,7 +101,6 @@ describe('GoalDetailScreen', () => {
         </Stack.Navigator>
       </NavigationContainer>
     )
-
     await act(async () => {
       await expect(AsyncStorage.getItem).toBeCalledTimes(1)
       await fireEvent.press(getByTestId('timerButton'))

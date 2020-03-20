@@ -1,17 +1,12 @@
 import * as React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  AppState,
-  Alert,
-  AsyncStorage,
-} from 'react-native'
-import { Timer } from 'react-native-stopwatch-timer'
+import { View, Text, StyleSheet, Alert, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
 import TimePicker from 'react-native-simple-time-picker'
 import { Notifications } from 'expo'
 import * as Permissions from 'expo-permissions'
+import Timer from '../components/Timer'
+
+import { formatTimeString } from '../lib/utils'
 
 const options = {
   container: {
@@ -74,18 +69,19 @@ export default function GoalTimerScreen({
   const { goal } = route.params
 
   const [timerRunning, setTimerRunning] = React.useState(false)
-  const [timerPaused, setTimerPaused] = React.useState(false)
-  const [timerReset, setTimerReset] = React.useState(false)
   const [duration, setDuration] = React.useState(initialDuration)
-  const [formattedTime, setFormattedTime] = React.useState('00:00:00')
+  const [start, setStart] = React.useState(0)
 
   React.useEffect(() => {
     navigation.setOptions({
       headerTitle: goal.name,
       headerBackTitle: 'Back',
     })
-    getiOSNotificationPermission()
   }, [navigation])
+
+  React.useEffect(() => {
+    getiOSNotificationPermission()
+  })
 
   async function addTimeToGoal(seconds) {
     const goalsString = await AsyncStorage.getItem('@goals')
@@ -104,90 +100,109 @@ export default function GoalTimerScreen({
     navigation.goBack()
   }
 
+  function openAlert(timeSpend) {
+    Alert.alert(
+      'Timer Finished',
+      `Do you want to add ${formatTimeString(timeSpend * 1000)} towards goal "${
+        goal.name
+      }"`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            return addTimeToGoal(timeSpend)
+          },
+        },
+      ]
+    )
+  }
+
+  function handleNotification(notification) {
+    setTimerRunning(false)
+    if (notification && notification.origin.match(/received|selected/)) {
+      openAlert(duration)
+      return
+    }
+    addTimeToGoal(duration)
+  }
+
+  React.useEffect(() => {
+    const subscription = Notifications.addListener(handleNotification)
+    return () => subscription.remove()
+  }, [])
+
+  function scheduleNotification() {
+    const localNotification = {
+      title: 'Tenk Timer Finished',
+      body: `Time has been added towards the goal "${goal.name}"`,
+      android: {
+        sound: true,
+      },
+      ios: {
+        sound: true,
+      },
+    }
+    const schedulingOptions = {
+      time: Date.now() + duration * 1000,
+    }
+    Notifications.scheduleLocalNotificationAsync(
+      localNotification,
+      schedulingOptions
+    )
+  }
+
+  function cancelScheduledNotification() {
+    Notifications.cancelAllScheduledNotificationsAsync()
+  }
+
+  function startTimer() {
+    setStart(Math.floor(Date.now() / 1000))
+    setTimerRunning(true)
+    scheduleNotification()
+  }
+
+  function stopTimer() {
+    setTimerRunning(false)
+    cancelScheduledNotification()
+    const currentTimestamp = Math.floor(Date.now() / 1000)
+    const timeSpend = currentTimestamp - start
+    openAlert(timeSpend)
+  }
+
   function toggleTimer() {
     if (timerRunning) {
-      setTimerRunning(false)
-      setTimerPaused(true)
+      stopTimer()
     } else if (duration > 0) {
-      setTimerRunning(true)
-      setTimerPaused(false)
-    }
-  }
-
-  function resetTimer() {
-    setTimerRunning(false)
-    setTimerPaused(false)
-    setTimerReset(true)
-    setDuration(0)
-  }
-
-  function handleTimerComplete() {
-    if (AppState.currentState.match(/inactive|background/)) {
-      const localNotification = {
-        title: 'Tenk Timer Finished',
-        body: `Time has been added towards the goal "${goal.name}"`,
-        android: {
-          sound: true,
-        },
-        ios: {
-          sound: true,
-        },
-      }
-      Notifications.presentLocalNotificationAsync(localNotification)
-    } else {
-      Alert.alert(
-        'Update Goal?',
-        `Do you want to add ${formattedTime} towards goal "${goal.name}"`,
-        [
-          {
-            text: 'Cancel',
-            style: 'cancel',
-          },
-          {
-            text: 'OK',
-            onPress: () => {
-              resetTimer()
-              return addTimeToGoal(duration / 1000)
-            },
-          },
-        ]
-      )
+      startTimer()
     }
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.timerContainer}>
-        {!timerRunning && !timerPaused && (
+        {!timerRunning && (
           <TimePicker
             selectedHours={0}
             selectedMinutes={0}
             hoursUnit=" hours"
             minutesUnit=" min"
             onChange={(hours, minutes) =>
-              setDuration((hours * 3600 + minutes * 60) * 1000)
+              setDuration(hours * 3600 + minutes * 60)
             }
+            testID="timePicker"
           />
         )}
-        {duration > 0 && (timerRunning || timerPaused) && (
-          <Timer
-            totalDuration={duration}
-            start={timerRunning}
-            reset={timerReset}
-            options={options}
-            handleFinish={() => handleTimerComplete()}
-            getTime={time => setFormattedTime(time)}
-          />
+        {duration > 0 && timerRunning && (
+          <Timer duration={duration} running={timerRunning} options={options} />
         )}
       </View>
       <Button
-        title={!timerRunning ? 'Start' : 'Pause'}
+        title={!timerRunning ? 'Start' : 'Stop'}
         onPress={() => toggleTimer()}
-        style={styles.button}
-      />
-      <Button
-        title="Reset"
-        onPress={() => resetTimer()}
         style={styles.button}
       />
       <Text style={styles.text}>

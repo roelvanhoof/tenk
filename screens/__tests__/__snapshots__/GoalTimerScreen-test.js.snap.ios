@@ -567,63 +567,6 @@ exports[`GoalTimerScreen renders correctly 1`] = `
       </View>
     </View>
   </View>
-  <View
-    style={
-      Object {
-        "borderRadius": 3,
-      }
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      isTVSelectable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignSelf": "center",
-          "marginBottom": 16,
-          "opacity": 1,
-          "width": 140,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#2089dc",
-            "borderColor": "#2089dc",
-            "borderRadius": 3,
-            "borderWidth": 0,
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "padding": 8,
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "color": "white",
-              "fontSize": 18,
-              "paddingBottom": 1,
-              "paddingTop": 2,
-              "textAlign": "center",
-            }
-          }
-        >
-          Reset
-        </Text>
-      </View>
-    </View>
-  </View>
   <Text
     style={
       Object {

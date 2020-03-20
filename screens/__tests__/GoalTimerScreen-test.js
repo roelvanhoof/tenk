@@ -2,11 +2,12 @@ import * as React from 'react'
 import renderer from 'react-test-renderer'
 import {
   render,
+  cleanup,
   act,
   fireEvent,
   waitForElement,
 } from 'react-native-testing-library'
-import { AsyncStorage, Alert, AppState } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 import { Notifications } from 'expo'
 import * as Permissions from 'expo-permissions'
 
@@ -33,9 +34,18 @@ jest.mock('react-native/Libraries/Storage/AsyncStorage', () => ({
   }),
 }))
 
+global.notificationListener = null
+
 jest.mock('expo/build/Notifications/Notifications', () => {
   return {
-    presentLocalNotificationAsync: jest.fn(),
+    scheduleLocalNotificationAsync: jest.fn(),
+    cancelAllScheduledNotificationsAsync: jest.fn(),
+    addListener: jest.fn(listener => {
+      global.notificationListener = listener
+      return {
+        remove: jest.fn(),
+      }
+    }),
   }
 })
 
@@ -68,6 +78,7 @@ jest.mock('expo-permissions/build/Permissions', () => {
 
 afterEach(() => {
   jest.clearAllMocks()
+  cleanup()
 })
 
 describe('GoalTimerScreen', () => {
@@ -90,18 +101,32 @@ describe('GoalTimerScreen', () => {
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
+  it(`removes the notification listener on cleanup`, () => {
+    render(
+      <GoalTimerScreen
+        navigation={navigation}
+        route={route}
+        initialDuration={1}
+      />
+    )
+    cleanup()
+  })
   it(`can use the timer`, async () => {
     const { getByText } = render(
       <GoalTimerScreen
         navigation={navigation}
         route={route}
-        initialDuration={1000}
+        initialDuration={1}
       />
     )
     await act(async () => {
       await fireEvent.press(getByText('Start'))
       await expect(getByText('00:00:01')).toBeTruthy()
       await waitForElement(() => getByText('00:00:00'))
+      const notification = {
+        origin: 'received',
+      }
+      global.notificationListener(notification)
       await expect(Alert.alert).toHaveBeenCalled()
       await Alert.alert.mock.calls[0][2][1].onPress()
       await expect(AsyncStorage.getItem).toBeCalledTimes(1)
@@ -109,19 +134,64 @@ describe('GoalTimerScreen', () => {
       await expect(navigation.goBack).toBeCalled()
     })
   })
-  it(`can pause the timer`, async () => {
+  it(`can stop the timer`, async () => {
     const { getByText } = render(
       <GoalTimerScreen
         navigation={navigation}
         route={route}
-        initialDuration={5000}
+        initialDuration={10}
       />
     )
     await act(async () => {
       await fireEvent.press(getByText('Start'))
-      await expect(getByText('00:00:05')).toBeTruthy()
-      await fireEvent.press(getByText('Pause'))
+      await expect(getByText('00:00:10')).toBeTruthy()
+      await waitForElement(() => getByText('00:00:09'))
+      await fireEvent.press(getByText('Stop'))
+      const cancelFunction = Notifications.cancelAllScheduledNotificationsAsync
+      await expect(cancelFunction).toBeCalledTimes(1)
+      await expect(Alert.alert).toHaveBeenCalled()
+      await Alert.alert.mock.calls[0][2][1].onPress()
+      await expect(AsyncStorage.getItem).toBeCalledTimes(1)
+      await expect(AsyncStorage.setItem).toBeCalledTimes(1)
+      await expect(navigation.goBack).toBeCalled()
+    })
+  })
+  it(`adds time towards goal when notification is send and app is not open`, async () => {
+    const { getByText } = render(
+      <GoalTimerScreen
+        navigation={navigation}
+        route={route}
+        initialDuration={1}
+      />
+    )
+    await act(async () => {
+      await fireEvent.press(getByText('Start'))
+      await expect(getByText('00:00:01')).toBeTruthy()
+      await waitForElement(() => getByText('00:00:00'))
+      global.notificationListener(null)
+      await expect(Alert.alert).not.toBeCalled()
+      await expect(AsyncStorage.getItem).toBeCalledTimes(1)
+      await expect(AsyncStorage.setItem).toBeCalledTimes(1)
+      await expect(navigation.goBack).toBeCalled()
+    })
+  })
+  it(`won't start the timer if no time has been picked`, async () => {
+    const { getByText } = render(
+      <GoalTimerScreen navigation={navigation} route={route} />
+    )
+    await act(async () => {
+      await fireEvent.press(getByText('Start'))
       await expect(getByText('Start')).toBeTruthy()
+    })
+  })
+  it(`can change the timer time by using the picker`, async () => {
+    const { getByText, getByTestId } = render(
+      <GoalTimerScreen navigation={navigation} route={route} />
+    )
+    await act(async () => {
+      await fireEvent(getByTestId('timePicker'), 'onChange', 1, 1)
+      await fireEvent.press(getByText('Start'))
+      await expect(getByText('01:01:00')).toBeTruthy()
     })
   })
   it(`throws an exception when goal doesn't exist`, async () => {
@@ -137,31 +207,19 @@ describe('GoalTimerScreen', () => {
       <GoalTimerScreen
         navigation={navigation}
         route={unknownRoute}
-        initialDuration={1000}
+        initialDuration={1}
       />
     )
     await act(async () => {
       await fireEvent.press(getByText('Start'))
       await waitForElement(() => getByText('00:00:00'))
+      const notification = {
+        origin: 'received',
+      }
+      global.notificationListener(notification)
       await expect(Alert.alert).toHaveBeenCalled()
       await expect(Alert.alert.mock.calls[0][2][1].onPress()).rejects.toThrow()
       await expect(AsyncStorage.setItem).toBeCalledTimes(0)
-    })
-  })
-  it(`pushes a notification when timer is finished and app is in the background`, async () => {
-    AppState.currentState = 'inactive'
-    const { getByText } = render(
-      <GoalTimerScreen
-        navigation={navigation}
-        route={route}
-        initialDuration={1000}
-      />
-    )
-    await act(async () => {
-      await fireEvent.press(getByText('Start'))
-      await waitForElement(() => getByText('00:00:00'))
-      const notification = Notifications.presentLocalNotificationAsync
-      await expect(notification).toBeCalledTimes(1)
     })
   })
   it(`asks for permissions when permission state is 'not granted'`, async () => {
@@ -169,6 +227,18 @@ describe('GoalTimerScreen', () => {
     await act(async () => {
       await expect(Permissions.getAsync).toBeCalledTimes(1)
       await expect(Permissions.askAsync).toBeCalledTimes(1)
+    })
+  })
+  it(`does not ask for permission when permission state is already 'granted'`, async () => {
+    Permissions.getAsync = jest.fn(() => {
+      return new Promise(resolve => {
+        resolve({ status: 'granted' })
+      })
+    })
+    render(<GoalTimerScreen navigation={navigation} route={route} />)
+    await act(async () => {
+      await expect(Permissions.getAsync).toBeCalledTimes(1)
+      await expect(Permissions.askAsync).toBeCalledTimes(0)
     })
   })
 })

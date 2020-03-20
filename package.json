@@ -9,7 +9,10 @@
     "test": "jest --watchAll"
   },
   "jest": {
-    "preset": "jest-expo",
+    "projects": [
+      { "preset": "jest-expo/ios" },
+      { "preset": "jest-expo/android"}
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-native-paper|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
     ],
@@ -21,9 +24,6 @@
       "!**/babel.config.js",
       "!**/jest.setup.js",
       "!web-build/**"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.js"
     ]
   },
   "dependencies": {
