@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { Linking } from 'expo'
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +13,14 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     width: 300,
   },
+  link: {
+    color: 'rgb(0, 122, 255)',
+  },
 })
+
+function openGithubPage() {
+  Linking.openURL('https://github.com/roelvanhoof/tenk')
+}
 
 export default function AboutScreen({ navigation }) {
   React.useEffect(() => {
@@ -41,6 +49,13 @@ export default function AboutScreen({ navigation }) {
       <Text style={styles.alinea}>
         TenK is an app to help you track the progress of your 10k hour goals in
         an easy and intuitive way.
+      </Text>
+      <Text style={styles.alinea}>
+        If you want to help out with the app, find bugs, have suggestions or
+        simply want to have a look at the code then you can visit the projects{' '}
+        <Text style={styles.link} onPress={openGithubPage}>
+          github page
+        </Text>
       </Text>
     </View>
   )
