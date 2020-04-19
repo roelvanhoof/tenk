@@ -56,6 +56,7 @@ export default function AboutScreen({ navigation }) {
         <Text style={styles.link} onPress={openGithubPage}>
           github page
         </Text>
+        .
       </Text>
     </View>
   )
