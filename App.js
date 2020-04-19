@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as Sentry from 'sentry-expo'
+import Constants from 'expo-constants'
 import {
   Platform,
   StatusBar,
@@ -19,10 +20,13 @@ import GoalsCreateScreen from './screens/GoalsCreateScreen'
 import GoalEditScreen from './screens/GoalEditScreen'
 
 Sentry.init({
-  dsn: 'https://0c69c4dd57a349d488184a8209e5ab00@sentry.io/5189099',
+  dsn:
+    'https://7c50611d993e4c39a0aa20b35138c74d@o373231.ingest.sentry.io/5205779',
   enableInExpoDevelopment: true,
   debug: true,
 })
+
+Sentry.setRelease(Constants.manifest.revisionId)
 
 const styles = StyleSheet.create({
   container: {
