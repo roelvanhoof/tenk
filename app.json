@@ -1,14 +1,13 @@
 {
   "expo": {
     "name": "TenK",
-    "description": "It takes 10k hours to become a master. TenK helps you track your progress to reach your 10k goals!",
+    "description": "TenK is an expo app for iOS and Android that helps you keep track of the time you spend on reaching your goals.",
     "owner": "Roel van Hoof",
     "slug": "tenk",
     "privacy": "public",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -33,9 +32,8 @@
         {
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
-            "organization": "RoRe Group",
-            "project": "TenK",
-            "authToken": "your auth token here"
+            "organization": "rore-group",
+            "project": "tenk"
           }
         }
       ]
