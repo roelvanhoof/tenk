@@ -1,13 +1,6 @@
 import * as React from 'react'
 import renderer from 'react-test-renderer'
-import {
-  render,
-  cleanup,
-  act,
-  fireEvent,
-  waitForElement,
-  flushMicrotasksQueue,
-} from 'react-native-testing-library'
+import { render, cleanup, act, fireEvent } from 'react-native-testing-library'
 import { AsyncStorage, Alert } from 'react-native'
 import { Notifications } from 'expo'
 import * as Permissions from 'expo-permissions'
@@ -162,7 +155,7 @@ describe('GoalTimerScreen', () => {
     })
   })
   it(`ignores unkown notification states`, async () => {
-    const { getByText } = render(
+    render(
       <GoalTimerScreen
         navigation={navigation}
         route={route}
