@@ -22,7 +22,7 @@ import GoalEditScreen from './screens/GoalEditScreen'
 Sentry.init({
   dsn:
     'https://7c50611d993e4c39a0aa20b35138c74d@o373231.ingest.sentry.io/5205779',
-  enableInExpoDevelopment: true,
+  enableInExpoDevelopment: false,
   debug: true,
 })
 
