@@ -15,12 +15,14 @@ const styles = StyleSheet.create({
 })
 
 export default function AboutScreen({ navigation }) {
-  navigation.setOptions({
-    headerTitle: 'About',
-  })
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'About',
+    })
+  }, [navigation])
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="aboutText">
       <Text style={styles.alinea}>
         TenK is an app to help you track the progress of your 10 000 hour goals.
       </Text>
@@ -30,10 +32,6 @@ export default function AboutScreen({ navigation }) {
       </Text>
       <Text style={styles.alinea}>
         That&apos;s when I decided to create TenK.
-      </Text>
-      <Text style={styles.alinea}>
-        If you have suggestions or experienced a bug please use github to tell
-        me about it.
       </Text>
     </View>
   )

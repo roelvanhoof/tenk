@@ -49,28 +49,28 @@ describe('GoalsCreateScreen', () => {
     )
 
     await act(async () => {
-      await fireEvent.changeText(getByTestId('name'), 'test goal')
-      await fireEvent(getByTestId('name'), 'blur')
+      await fireEvent.changeText(getByTestId('addname'), 'test goal')
+      await fireEvent(getByTestId('addname'), 'blur')
 
-      await fireEvent.changeText(getByTestId('hours'), '10000')
-      await fireEvent(getByTestId('hours'), 'blur')
+      await fireEvent.changeText(getByTestId('addhours'), '10000')
+      await fireEvent(getByTestId('addhours'), 'blur')
 
-      await fireEvent.changeText(getByTestId('spent'), '3000')
-      await fireEvent(getByTestId('spent'), 'blur')
+      await fireEvent.changeText(getByTestId('addspent'), '3000')
+      await fireEvent(getByTestId('addspent'), 'blur')
 
       if (Platform.OS === 'android') {
-        await fireEvent.press(getByTestId('androidStartDateButton'))
+        await fireEvent.press(getByTestId('addandroidStartDateButton'))
       }
 
       const someTimeAgo = new Date(Date.UTC('2018', '01', '01'))
       await fireEvent(
-        getByTestId('dateTimePicker'),
+        getByTestId('adddateTimePicker'),
         'onChange',
         null,
         someTimeAgo
       )
 
-      await fireEvent.press(getByTestId('addGoalButton'))
+      await fireEvent.press(getByTestId('addgoalFormSubmitButton'))
 
       await flushMicrotasksQueue()
 

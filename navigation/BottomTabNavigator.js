@@ -43,6 +43,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} type="feather" name="target" />
           ),
+          tabBarTestID: 'goalsBottomBarIcon',
         }}
       />
       <BottomTab.Screen
@@ -52,6 +53,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} name="md-book" />
           ),
+          tabBarTestID: 'aboutBottomBarIcon',
         }}
       />
     </BottomTab.Navigator>

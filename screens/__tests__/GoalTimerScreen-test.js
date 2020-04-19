@@ -6,6 +6,7 @@ import {
   act,
   fireEvent,
   waitForElement,
+  flushMicrotasksQueue,
 } from 'react-native-testing-library'
 import { AsyncStorage, Alert } from 'react-native'
 import { Notifications } from 'expo'
@@ -76,6 +77,10 @@ jest.mock('expo-permissions/build/Permissions', () => {
   }
 })
 
+beforeEach(() => {
+  jest.useFakeTimers()
+})
+
 afterEach(() => {
   jest.clearAllMocks()
   cleanup()
@@ -121,12 +126,10 @@ describe('GoalTimerScreen', () => {
     )
     await act(async () => {
       await fireEvent.press(getByText('Start'))
-      await expect(getByText('00:00:01')).toBeTruthy()
-      await waitForElement(() => getByText('00:00:00'))
-      const notification = {
-        origin: 'received',
-      }
-      global.notificationListener(notification)
+      const dateSpy = jest.spyOn(Date, 'now')
+      dateSpy.mockReturnValue(Date.now() + 1000)
+      await jest.advanceTimersByTime(1000)
+      dateSpy.mockRestore()
       await expect(Alert.alert).toHaveBeenCalled()
       await Alert.alert.mock.calls[0][2][1].onPress()
       await expect(AsyncStorage.getItem).toBeCalledTimes(1)
@@ -144,8 +147,10 @@ describe('GoalTimerScreen', () => {
     )
     await act(async () => {
       await fireEvent.press(getByText('Start'))
-      await expect(getByText('00:00:10')).toBeTruthy()
-      await waitForElement(() => getByText('00:00:09'))
+      const dateSpy = jest.spyOn(Date, 'now')
+      dateSpy.mockReturnValue(Date.now() + 1000)
+      await jest.advanceTimersByTime(1000)
+      dateSpy.mockRestore()
       await fireEvent.press(getByText('Stop'))
       const cancelFunction = Notifications.cancelAllScheduledNotificationsAsync
       await expect(cancelFunction).toBeCalledTimes(1)
@@ -156,7 +161,7 @@ describe('GoalTimerScreen', () => {
       await expect(navigation.goBack).toBeCalled()
     })
   })
-  it(`adds time towards goal when notification is send and app is not open`, async () => {
+  it(`ignores unkown notification states`, async () => {
     const { getByText } = render(
       <GoalTimerScreen
         navigation={navigation}
@@ -165,14 +170,15 @@ describe('GoalTimerScreen', () => {
       />
     )
     await act(async () => {
-      await fireEvent.press(getByText('Start'))
-      await expect(getByText('00:00:01')).toBeTruthy()
-      await waitForElement(() => getByText('00:00:00'))
-      global.notificationListener(null)
+      const notification = {
+        origin: 'unknown_state',
+        data: {
+          duration: 1,
+          goalId: '123',
+        },
+      }
+      global.notificationListener(notification)
       await expect(Alert.alert).not.toBeCalled()
-      await expect(AsyncStorage.getItem).toBeCalledTimes(1)
-      await expect(AsyncStorage.setItem).toBeCalledTimes(1)
-      await expect(navigation.goBack).toBeCalled()
     })
   })
   it(`won't start the timer if no time has been picked`, async () => {
@@ -212,9 +218,16 @@ describe('GoalTimerScreen', () => {
     )
     await act(async () => {
       await fireEvent.press(getByText('Start'))
-      await waitForElement(() => getByText('00:00:00'))
+      const dateSpy = jest.spyOn(Date, 'now')
+      dateSpy.mockReturnValue(Date.now() + 1000)
+      await jest.advanceTimersByTime(1000)
+      dateSpy.mockRestore()
       const notification = {
         origin: 'received',
+        data: {
+          duration: 1,
+          goalId: 'unknownId',
+        },
       }
       global.notificationListener(notification)
       await expect(Alert.alert).toHaveBeenCalled()

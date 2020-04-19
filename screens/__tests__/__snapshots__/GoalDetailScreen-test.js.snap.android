@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GoalDetailScreen renders correctly 1`] = `
-<GestureHandlerRootView
+<View
   style={
     Object {
       "flex": 1,
@@ -238,5 +238,5 @@ exports[`GoalDetailScreen renders correctly 1`] = `
       </View>
     </View>
   </RNCSafeAreaView>
-</GestureHandlerRootView>
+</View>
 `;

@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements'
 import TimePicker from 'react-native-simple-time-picker'
 import { Notifications } from 'expo'
 import * as Permissions from 'expo-permissions'
+import useInterval from '../hooks/useInterval'
 import Timer from '../components/Timer'
 
 import { formatTimeString } from '../lib/utils'
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
   timerContainer: {
     height: 300,
     paddingTop: 50,
-    paddingBottom: 30,
+    paddingBottom: 10,
   },
   button: {
     width: 140,
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-    marginTop: 100,
+    marginTop: 40,
     width: 340,
     alignSelf: 'center',
     textAlign: 'center',
@@ -124,10 +125,8 @@ export default function GoalTimerScreen({
   function handleNotification(notification) {
     setTimerRunning(false)
     if (notification && notification.origin.match(/received|selected/)) {
-      openAlert(duration)
-      return
+      openAlert(notification.data.duration)
     }
-    addTimeToGoal(duration)
   }
 
   React.useEffect(() => {
@@ -138,7 +137,10 @@ export default function GoalTimerScreen({
   function scheduleNotification() {
     const localNotification = {
       title: 'Tenk Timer Finished',
-      body: `Time has been added towards the goal "${goal.name}"`,
+      body: `Timer has finihsed, open TenK to update your goal "${goal.name}"`,
+      data: {
+        duration,
+      },
       android: {
         sound: true,
       },
@@ -158,6 +160,18 @@ export default function GoalTimerScreen({
   function cancelScheduledNotification() {
     Notifications.cancelAllScheduledNotificationsAsync()
   }
+
+  useInterval(() => {
+    if (timerRunning) {
+      const currentTimestamp = Math.floor(Date.now() / 1000)
+      const timeSpend = currentTimestamp - start
+      if (timeSpend >= duration) {
+        setTimerRunning(false)
+        cancelScheduledNotification()
+        openAlert(duration)
+      }
+    }
+  }, 100)
 
   function startTimer() {
     setStart(Math.floor(Date.now() / 1000))
@@ -190,9 +204,10 @@ export default function GoalTimerScreen({
             selectedMinutes={0}
             hoursUnit=" hours"
             minutesUnit=" min"
-            onChange={(hours, minutes) =>
-              setDuration(hours * 3600 + minutes * 60)
-            }
+            onChange={(hours, minutes) => {
+              const seconds = hours * 3600 + minutes * 60
+              setDuration(seconds)
+            }}
             testID="timePicker"
           />
         )}
@@ -209,7 +224,8 @@ export default function GoalTimerScreen({
         Start the timer and start working on you goal.
       </Text>
       <Text style={styles.text2}>
-        When the timer ends the time will be added towards completing your goal.
+        When the timer ends you can choose to add the time towards completing
+        your goal.
       </Text>
       <Text style={styles.text3}>Good luck, you can do it!</Text>
     </View>

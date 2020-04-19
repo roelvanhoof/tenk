@@ -10,6 +10,7 @@ exports[`AboutScreen renders correctly 1`] = `
       "justifyContent": "center",
     }
   }
+  testID="aboutText"
 >
   <Text
     style={
@@ -40,16 +41,6 @@ exports[`AboutScreen renders correctly 1`] = `
     }
   >
     That's when I decided to create TenK.
-  </Text>
-  <Text
-    style={
-      Object {
-        "paddingBottom": 15,
-        "width": 300,
-      }
-    }
-  >
-    If you have suggestions or experienced a bug please use github to tell me about it.
   </Text>
 </View>
 `;

@@ -27,6 +27,18 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "RoRe Group",
+            "project": "TenK",
+            "authToken": "your auth token here"
+          }
+        }
+      ]
     }
   }
 }

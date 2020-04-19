@@ -84,7 +84,11 @@ export default function GoalDetailScreen({ navigation, route }) {
     navigation.setOptions({
       headerTitle: g.name,
       headerRight: () => (
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('GoalEditScreen', { goalId: g.id })
+          }}
+        >
           <Text style={styles.editButton}>Edit</Text>
         </TouchableOpacity>
       ),

@@ -14,7 +14,7 @@ exports[`GoalTimerScreen renders correctly 1`] = `
     style={
       Object {
         "height": 300,
-        "paddingBottom": 30,
+        "paddingBottom": 10,
         "paddingTop": 50,
       }
     }
@@ -465,7 +465,7 @@ exports[`GoalTimerScreen renders correctly 1`] = `
     style={
       Object {
         "alignSelf": "center",
-        "marginTop": 100,
+        "marginTop": 40,
         "textAlign": "center",
         "width": 340,
       }
@@ -483,7 +483,7 @@ exports[`GoalTimerScreen renders correctly 1`] = `
       }
     }
   >
-    When the timer ends the time will be added towards completing your goal.
+    When the timer ends you can choose to add the time towards completing your goal.
   </Text>
   <Text
     style={
